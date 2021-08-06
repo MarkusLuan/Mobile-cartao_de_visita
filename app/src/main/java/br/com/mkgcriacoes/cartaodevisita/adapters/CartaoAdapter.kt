@@ -35,13 +35,13 @@ class CartaoAdapter: RecyclerView.Adapter<CartaoAdapter.CartaoViewHolder>() {
         private val txt_nome = itemView.findViewById<TextView>(R.id.txt_nome)
         private val txt_email = itemView.findViewById<TextView>(R.id.txt_email)
         private val txt_fone = itemView.findViewById<TextView>(R.id.txt_fone)
+        private val txt_empresa = itemView.findViewById<TextView>(R.id.txt_empresa)
 
         fun bind(cartao: CartaoVisita){
-            txt_nome.text = "Nome: ${cartao.nome}"
-            txt_email.text = "e-Mail: ${cartao.email}"
-            txt_fone.text = "Fone: ${cartao.telefone}"
-//            cartao.empresa
-//            cartao.cor
+            txt_nome.text = cartao.nome
+            txt_email.text = cartao.email
+            txt_fone.text = cartao.telefone
+            txt_empresa.text = cartao.empresa?.razaoSocial
         }
     }
 }

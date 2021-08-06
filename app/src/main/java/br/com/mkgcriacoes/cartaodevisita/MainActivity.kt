@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.mkgcriacoes.cartaodevisita.adapters.CartaoAdapter
 import br.com.mkgcriacoes.cartaodevisita.databinding.ActivityMainBinding
 import br.com.mkgcriacoes.cartaodevisita.model.CartaoVisita
+import br.com.mkgcriacoes.cartaodevisita.model.Empresa
 
 class MainActivity : AppCompatActivity() {
     private val binder by lazy {
@@ -30,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         val cartoes = arrayOf<CartaoVisita>(CartaoVisita().apply {
             this.nome = "Markus Luan de Brito Sousa Pinheiro"
             this.email = "teste@mkgcriacoes.com.br"
+            this.telefone = "(84) 9 1518-4208"
+            this.empresa = Empresa().apply { this.razaoSocial = "Empresa de teste" }
         })
 
         adapter.updateCartoes(cartoes.toList())
