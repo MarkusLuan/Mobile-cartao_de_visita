@@ -1,10 +1,10 @@
 package br.com.mkgcriacoes.cartaodevisita
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.GridLayoutManager
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import br.com.mkgcriacoes.cartaodevisita.adapters.CartaoAdapter
 import br.com.mkgcriacoes.cartaodevisita.databinding.ActivityMainBinding
 import br.com.mkgcriacoes.cartaodevisita.model.CartaoVisita
@@ -36,5 +36,10 @@ class MainActivity : AppCompatActivity() {
         })
 
         adapter.updateCartoes(cartoes.toList())
+    }
+
+    fun criarNovoCartao(view: View) {
+        val intent = Intent(this, NovoCartaoActivity::class.java)
+        startActivity(intent)
     }
 }
