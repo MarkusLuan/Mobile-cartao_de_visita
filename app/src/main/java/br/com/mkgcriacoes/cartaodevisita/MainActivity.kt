@@ -23,6 +23,11 @@ class MainActivity : AppCompatActivity() {
 
         binder.rvCartoes.adapter = adapter
         binder.rvCartoes.layoutManager = LinearLayoutManager(this)
+
+        binder.btAddCartao.setOnClickListener {
+            val intent = Intent(this, NovoCartaoActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {
@@ -36,10 +41,5 @@ class MainActivity : AppCompatActivity() {
         })
 
         adapter.updateCartoes(cartoes.toList())
-    }
-
-    fun criarNovoCartao(view: View) {
-        val intent = Intent(this, NovoCartaoActivity::class.java)
-        startActivity(intent)
     }
 }
