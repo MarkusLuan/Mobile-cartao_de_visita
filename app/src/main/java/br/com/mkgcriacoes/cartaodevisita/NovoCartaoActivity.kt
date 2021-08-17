@@ -2,10 +2,12 @@ package br.com.mkgcriacoes.cartaodevisita
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.telephony.PhoneNumberFormattingTextWatcher
 import androidx.activity.viewModels
 import br.com.mkgcriacoes.cartaodevisita.databinding.ActivityNovoCartaoBinding
 import br.com.mkgcriacoes.cartaodevisita.model.CartaoVisita
 import br.com.mkgcriacoes.cartaodevisita.model.MainViewModel
+import br.com.mkgcriacoes.cartaodevisita.model.MainViewModelFactory
 
 class NovoCartaoActivity : AppCompatActivity() {
     private val binder by lazy {
@@ -13,12 +15,14 @@ class NovoCartaoActivity : AppCompatActivity() {
     }
 
     private val viewModel: MainViewModel by viewModels {
-        MainViewModel((application as App).cartaoVisitaRepository)
+        MainViewModelFactory((application as App).cartaoVisitaRepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binder.root)
+
+        binder.edTxtTelefone.editText?.addTextChangedListener(PhoneNumberFormattingTextWatcher())
 
         binder.btSalvarCartao.setOnClickListener {
             val cartaoVisita = CartaoVisita(

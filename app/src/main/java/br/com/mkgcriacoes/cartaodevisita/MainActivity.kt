@@ -11,6 +11,7 @@ import br.com.mkgcriacoes.cartaodevisita.databinding.ActivityMainBinding
 import br.com.mkgcriacoes.cartaodevisita.model.CartaoVisita
 import br.com.mkgcriacoes.cartaodevisita.model.Empresa
 import br.com.mkgcriacoes.cartaodevisita.model.MainViewModel
+import br.com.mkgcriacoes.cartaodevisita.model.MainViewModelFactory
 
 class MainActivity : AppCompatActivity() {
     private val binder by lazy {
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val viewModel: MainViewModel by viewModels {
-        MainViewModel((application as App).cartaoVisitaRepository)
+        MainViewModelFactory((application as App).cartaoVisitaRepository)
     }
 
     private val adapter = CartaoAdapter()
