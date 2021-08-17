@@ -7,12 +7,12 @@ import kotlinx.coroutines.runBlocking
 
 class CartoVisitaRepository(
     private val dao: CartaoVisitaDao
-    ) {
+) {
     fun getAll() = dao.getAll()
 
-    fun save(cartaoVisita: CartaoVisita) = runBlocking {
+    fun insert(cartaoVisita: CartaoVisita) = runBlocking {
         launch(Dispatchers.IO){
-            dao.save(cartaoVisita)
+            dao.insert(cartaoVisita)
         }
     }
 }

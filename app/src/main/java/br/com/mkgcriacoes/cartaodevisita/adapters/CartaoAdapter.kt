@@ -41,7 +41,7 @@ class CartaoAdapter: RecyclerView.Adapter<CartaoAdapter.CartaoViewHolder>() {
             txt_nome.text = cartao.nome
             txt_email.text = cartao.email
             txt_fone.text = cartao.telefone
-            txt_empresa.text = cartao.empresa?.razaoSocial
+            txt_empresa.text = cartao.empresa
         }
     }
 }

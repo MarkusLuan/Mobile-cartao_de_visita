@@ -13,5 +13,5 @@ interface CartaoVisitaDao {
     fun getAll(): LiveData<List<CartaoVisita>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun save(cartaoVisita: CartaoVisita)
+    suspend fun insert(cartaoVisita: CartaoVisita)
 }

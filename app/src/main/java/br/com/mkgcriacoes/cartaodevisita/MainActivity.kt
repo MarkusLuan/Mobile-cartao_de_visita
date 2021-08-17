@@ -3,16 +3,22 @@ package br.com.mkgcriacoes.cartaodevisita
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.mkgcriacoes.cartaodevisita.adapters.CartaoAdapter
 import br.com.mkgcriacoes.cartaodevisita.databinding.ActivityMainBinding
 import br.com.mkgcriacoes.cartaodevisita.model.CartaoVisita
 import br.com.mkgcriacoes.cartaodevisita.model.Empresa
+import br.com.mkgcriacoes.cartaodevisita.model.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private val binder by lazy {
       ActivityMainBinding.inflate(layoutInflater)
+    }
+
+    private val viewModel: MainViewModel by viewModels {
+        MainViewModel((application as App).cartaoVisitaRepository)
     }
 
     private val adapter = CartaoAdapter()
@@ -33,13 +39,8 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val cartoes = arrayOf<CartaoVisita>(CartaoVisita().apply {
-            this.nome = "Markus Luan de Brito Sousa Pinheiro"
-            this.email = "teste@mkgcriacoes.com.br"
-            this.telefone = "(84) 9 1518-4208"
-            this.empresa = Empresa().apply { this.razaoSocial = "Empresa de teste" }
+        viewModel.getAll().observe(this, { cartoes ->
+            adapter.updateCartoes(cartoes)
         })
-
-        adapter.updateCartoes(cartoes.toList())
     }
 }
