@@ -1,5 +1,6 @@
 package br.com.mkgcriacoes.cartaodevisita
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
@@ -18,11 +19,22 @@ class NovoCartaoActivity : AppCompatActivity() {
         MainViewModelFactory((application as App).cartaoVisitaRepository)
     }
 
+    private var cor = "#000000"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binder.root)
 
         binder.edTxtTelefone.editText?.addTextChangedListener(PhoneNumberFormattingTextWatcher())
+
+        binder.btCor.setOnClickListener {
+            val corDialog = CorSeletorDialog(this)
+            corDialog.setOnCorSelectListner {cor ->
+                this.cor = cor
+                binder.btCor.setBackgroundColor(Color.parseColor(cor))
+            }
+            corDialog.show()
+        }
 
         binder.btSalvarCartao.setOnClickListener {
             val cartaoVisita = CartaoVisita(
@@ -30,7 +42,7 @@ class NovoCartaoActivity : AppCompatActivity() {
                 empresa = binder.edTxtEmpresa.editText?.text.toString(),
                 telefone = binder.edTxtTelefone.editText?.text.toString(),
                 email = binder.edTxtEmail.editText?.text.toString(),
-                cor = binder.btCor.background.toString()
+                cor = this.cor
             )
 
             viewModel.insert(cartaoVisita)

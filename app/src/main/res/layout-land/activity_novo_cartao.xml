@@ -127,7 +127,8 @@
                 android:id="@+id/bt_cor"
                 android:layout_width="40dp"
                 android:layout_height="49dp"
-                app:cornerRadius="50dp" />
+                app:cornerRadius="50dp"
+                app:backgroundTint="#000000" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
