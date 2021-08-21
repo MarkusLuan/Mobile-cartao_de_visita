@@ -4,14 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.mkgcriacoes.cartaodevisita.adapters.CartaoAdapter
 import br.com.mkgcriacoes.cartaodevisita.databinding.ActivityMainBinding
-import br.com.mkgcriacoes.cartaodevisita.model.CartaoVisita
-import br.com.mkgcriacoes.cartaodevisita.model.Empresa
 import br.com.mkgcriacoes.cartaodevisita.model.MainViewModel
 import br.com.mkgcriacoes.cartaodevisita.model.MainViewModelFactory
+import br.com.mkgcriacoes.cartaodevisita.utils.Imagem
 
 class MainActivity : AppCompatActivity() {
     private val binder by lazy {
@@ -27,6 +25,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binder.root)
+
+        adapter.onClick = {view ->
+            Imagem.compartilhar(this, view)
+        }
 
         binder.rvCartoes.adapter = adapter
         binder.rvCartoes.layoutManager = LinearLayoutManager(this)
