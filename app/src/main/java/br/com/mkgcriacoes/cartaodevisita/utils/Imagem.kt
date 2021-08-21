@@ -2,6 +2,8 @@ package br.com.mkgcriacoes.cartaodevisita.utils
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.net.Uri
@@ -42,7 +44,7 @@ abstract class Imagem {
                 img.compress(Bitmap.CompressFormat.PNG, 100, it)
             }
 
-            return FileProvider.getUriForFile(context, "br.com.mkgcriacoes.cartaodevisita.fileprovider", imgFile)
+            return FileProvider.getUriForFile(context, context.packageName + ".fileprovider", imgFile)
         }
 
         fun compartilhar(context: Context, view: View) {
@@ -50,12 +52,24 @@ abstract class Imagem {
             val uri = imgToUri(context, img!!)
 
             val intent = Intent(Intent.ACTION_SEND).apply {
-                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION and Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                 putExtra(Intent.EXTRA_STREAM, uri)
                 type = "image/png"
             }
 
             val chooser = Intent.createChooser(intent, "Compartilhar Cartão Via")
+
+            val resInfoList: List<ResolveInfo> = context.packageManager
+                .queryIntentActivities(chooser, PackageManager.MATCH_DEFAULT_ONLY)
+
+            for (resolveInfo in resInfoList) {
+                val packageName = resolveInfo.activityInfo.packageName
+                context.grantUriPermission(
+                    packageName,
+                    uri,
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+            }
+
             context.startActivity(chooser)
         }
     }
