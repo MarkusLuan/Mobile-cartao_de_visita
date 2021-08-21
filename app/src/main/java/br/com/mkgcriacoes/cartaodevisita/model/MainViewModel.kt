@@ -9,11 +9,17 @@ import java.lang.IllegalArgumentException
 class MainViewModel (
     private val repository: CartoVisitaRepository
 ): ViewModel() {
+    fun getAll(): LiveData<List<CartaoVisita>> = repository.getAll()
+
+    fun getById(id: Long): LiveData<CartaoVisita> = repository.getById(id)
+
     fun insert(cartaoVisita: CartaoVisita){
         repository.insert(cartaoVisita)
     }
 
-    fun getAll(): LiveData<List<CartaoVisita>> = repository.getAll()
+    fun delete(cartaoVisita: CartaoVisita){
+        repository.delete(cartaoVisita)
+    }
 }
 
 class MainViewModelFactory(

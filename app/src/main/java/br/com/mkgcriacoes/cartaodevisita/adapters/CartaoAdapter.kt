@@ -11,7 +11,7 @@ import br.com.mkgcriacoes.cartaodevisita.model.CartaoVisita
 class CartaoAdapter: RecyclerView.Adapter<CartaoAdapter.CartaoViewHolder>() {
     private val cartoes = mutableListOf<CartaoVisita>()
 
-    var onClick = { view: View -> Unit }
+    var onClick = { cartao: CartaoVisita -> Unit }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartaoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_cartao_visita, parent, false)
@@ -22,7 +22,7 @@ class CartaoAdapter: RecyclerView.Adapter<CartaoAdapter.CartaoViewHolder>() {
         val cartao = cartoes[pos]
         holder.bind(cartao)
         holder.itemView.setOnClickListener { view ->
-            onClick(view)
+            onClick(cartao)
         }
     }
 

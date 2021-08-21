@@ -8,11 +8,19 @@ import kotlinx.coroutines.runBlocking
 class CartoVisitaRepository(
     private val dao: CartaoVisitaDao
 ) {
+    fun getById(id: Long) = dao.getById(id)
+
     fun getAll() = dao.getAll()
 
     fun insert(cartaoVisita: CartaoVisita) = runBlocking {
         launch(Dispatchers.IO){
             dao.insert(cartaoVisita)
+        }
+    }
+
+    fun delete(cartaoVisita: CartaoVisita) = runBlocking {
+        launch(Dispatchers.IO){
+            dao.delete(cartaoVisita)
         }
     }
 }

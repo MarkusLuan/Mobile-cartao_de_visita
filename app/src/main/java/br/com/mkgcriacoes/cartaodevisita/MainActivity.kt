@@ -26,8 +26,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binder.root)
 
-        adapter.onClick = {view ->
-            Imagem.compartilhar(this, view)
+        adapter.onClick = {cartao ->
+            val intent = Intent(this, CartaoActivity::class.java)
+            intent.putExtra("cartao", cartao.id)
+            startActivity(intent)
         }
 
         binder.rvCartoes.adapter = adapter
