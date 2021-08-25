@@ -9,7 +9,6 @@ import br.com.mkgcriacoes.cartaodevisita.adapters.CartaoAdapter
 import br.com.mkgcriacoes.cartaodevisita.databinding.ActivityMainBinding
 import br.com.mkgcriacoes.cartaodevisita.model.MainViewModel
 import br.com.mkgcriacoes.cartaodevisita.model.MainViewModelFactory
-import br.com.mkgcriacoes.cartaodevisita.utils.Imagem
 
 class MainActivity : AppCompatActivity() {
     private val binder by lazy {
@@ -27,8 +26,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binder.root)
 
         adapter.onClick = {cartao ->
-            val intent = Intent(this, CartaoActivity::class.java)
-            intent.putExtra("cartao", cartao.id)
+            val intent = Intent(this, CartaoActivity::class.java).apply {
+                putExtra("cartao", cartao.id)
+            }
             startActivity(intent)
         }
 
