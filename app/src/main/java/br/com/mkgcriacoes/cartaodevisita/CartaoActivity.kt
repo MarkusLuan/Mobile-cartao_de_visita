@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +26,9 @@ class CartaoActivity : AppCompatActivity() {
     }
 
     private val viewCartao by lazy {
-        View.inflate(this, R.layout.item_cartao_visita, null)
+        val view = View.inflate(this, R.layout.item_cartao_visita, null)
+        view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        view
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
