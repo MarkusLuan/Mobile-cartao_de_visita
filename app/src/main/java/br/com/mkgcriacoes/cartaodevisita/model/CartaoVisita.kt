@@ -1,10 +1,16 @@
 package br.com.mkgcriacoes.cartaodevisita.model
 
-class CartaoVisita {
-    var id: Long? = null
-    var nome: String? = null
-    var empresa: Empresa? = null
-    var telefone: String? = null
-    var email: String? = null
-    var cor: Int? = null
-}
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class CartaoVisita (
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+
+    val nome: String,
+    val empresa: String,
+    val telefone: String,
+    val email: String,
+    val cor: String
+)

@@ -1,17 +1,22 @@
 package br.com.mkgcriacoes.cartaodevisita
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import br.com.mkgcriacoes.cartaodevisita.adapters.CartaoAdapter
 import br.com.mkgcriacoes.cartaodevisita.databinding.ActivityMainBinding
-import br.com.mkgcriacoes.cartaodevisita.model.CartaoVisita
+import br.com.mkgcriacoes.cartaodevisita.model.MainViewModel
+import br.com.mkgcriacoes.cartaodevisita.model.MainViewModelFactory
 
 class MainActivity : AppCompatActivity() {
     private val binder by lazy {
       ActivityMainBinding.inflate(layoutInflater)
+    }
+
+    private val viewModel: MainViewModel by viewModels {
+        MainViewModelFactory((application as App).cartaoVisitaRepository)
     }
 
     private val adapter = CartaoAdapter()
@@ -20,18 +25,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binder.root)
 
+        adapter.onClick = {cartao ->
+            val intent = Intent(this, CartaoActivity::class.java).apply {
+                putExtra("cartao", cartao.id)
+            }
+            startActivity(intent)
+        }
+
         binder.rvCartoes.adapter = adapter
         binder.rvCartoes.layoutManager = LinearLayoutManager(this)
+
+        binder.btAddCartao.setOnClickListener {
+            val intent = Intent(this, NovoCartaoActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {
         super.onResume()
 
-        val cartoes = arrayOf<CartaoVisita>(CartaoVisita().apply {
-            this.nome = "Markus Luan de Brito Sousa Pinheiro"
-            this.email = "teste@mkgcriacoes.com.br"
+        viewModel.getAll().observe(this, { cartoes ->
+            adapter.updateCartoes(cartoes)
         })
-
-        adapter.updateCartoes(cartoes.toList())
     }
 }
