@@ -1,6 +1,8 @@
 package br.com.mkgcriacoes.cartaodevisita
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.ViewCompat
 import br.com.mkgcriacoes.cartaodevisita.databinding.ActivityCartaoBinding
 import br.com.mkgcriacoes.cartaodevisita.model.CartaoVisita
 import br.com.mkgcriacoes.cartaodevisita.model.MainViewModel
@@ -41,7 +44,7 @@ class CartaoActivity : AppCompatActivity() {
 
             if (cartao != null){
                 renderViewCartao()
-                binder.root.addView(viewCartao)
+                binder.root.addView(viewCartao, 0)
             }else finish()
         })
 
@@ -73,5 +76,8 @@ class CartaoActivity : AppCompatActivity() {
         viewCartao.findViewById<TextView>(R.id.txt_email).text = cartao?.email
         viewCartao.findViewById<TextView>(R.id.txt_fone).text = cartao?.telefone
         viewCartao.findViewById<TextView>(R.id.txt_empresa).text = cartao?.empresa
+
+        val cor = ColorStateList.valueOf(Color.parseColor(cartao?.cor))
+        ViewCompat.setBackgroundTintList(viewCartao.findViewById(R.id.view_cor), cor)
     }
 }
